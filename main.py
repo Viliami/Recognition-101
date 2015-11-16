@@ -25,8 +25,36 @@ def contains_corner(points,corner):
         return True
     return False
 
+def shape_name(corners_amount):
+    c = corners_amount
+    if(c <= 2 or c >= 20):
+        return "???"
+    elif c == 3:
+        return "Triangle"
+    elif c == 4:
+        return "Rectangle"
+    elif c == 5:
+        return "Pentagon"
+    elif c == 6:
+        return "Hexagon"
+    elif c == 7:
+        return "Heptagon"
+    elif c == 8:
+        return "Octagon"
+    elif c == 9:
+        return "Nonagon"
+    elif c == 10:
+        return "Decagon"
+    elif c == 11:
+        return "Hendecagon"
+    elif c == 12:
+        return "Dodecagon"
+    else:
+        return str(corners_amount)+"-gon"
+
 for file in files:
     new_img = Image(file)
+    plain_img = Image(file)
     new_img = new_img.binarize()
     blobs = new_img.findBlobs()
     corners = new_img.findCorners()
@@ -52,9 +80,9 @@ for file in files:
             #print(contains_corner(gen_rect_points(blobs[1]),corner.coordinates()))
         print(counter)
         #print(contains_corner(gen_rect_points(blobs[1]),corners[1].coordinates()))
-        new_img.drawText(str(counter),blob.coordinates()[0],blob.coordinates()[1])
+        plain_img.drawText(shape_name(counter),blob.coordinates()[0],blob.coordinates()[1])
         blobs_counter.append(counter)
 
-    new_img.show()
-    new_img.save("images/processed.jpg")
+    plain_img.show()
+    plain_img.save("images/processed.jpg")
     time.sleep(2)
