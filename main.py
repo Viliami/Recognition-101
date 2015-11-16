@@ -16,13 +16,21 @@ files = glob.glob(directory)
 def gen_rect_points(blob):
     return [(blob.minX(),blob.minY()),(blob.minX(),blob.maxY()),(blob.maxX(),blob.maxY()),(blob.maxX(),blob.minY())]
 
+def contains_corner(points,corner):
+    p_x1,p_y1 = points[0]
+    p_x2,p_y2 = points[2]
+    c_x,c_y = corner
+    #print("c_x = %i\nc_y = %i\np_x1 = %i\np_y1 = %i\np_x2 = %i\np_y2 = %i"%(c_x,c_y,p_x1,p_y1,p_x2,p_y2))
+    if(c_x >= p_x1 and c_x <= p_x2 and c_y >= p_y1 and c_y <= p_y2):
+        return True
+    return False
+
 for file in files:
     new_img = Image(file)
     new_img = new_img.binarize()
     blobs = new_img.findBlobs()
-    print("Height",blobs.height())
-    print("MaxX = ",blobs[0].maxX())
-    print("MaxY = ",blobs[0].maxY())
+    corners = new_img.findCorners()
+
     if(blobs):
         blobs.draw()
 
@@ -30,7 +38,23 @@ for file in files:
         points = gen_rect_points(blob)
         new_img.dl().polygon(points,filled = True, color=Color.RED)
 
+    if(corners):
+        corners.draw()
+
+    print(list(corners[0].coordinates()))
+    
+    blobs_counter = list()
+    for blob in blobs:
+        counter = 0
+        for corner in corners:
+            if(contains_corner(gen_rect_points(blob),corner.coordinates())):
+                counter+=1
+            #print(contains_corner(gen_rect_points(blobs[1]),corner.coordinates()))
+        print(counter)
+        #print(contains_corner(gen_rect_points(blobs[1]),corners[1].coordinates()))
+        new_img.drawText(str(counter),blob.coordinates()[0],blob.coordinates()[1])
+        blobs_counter.append(counter)
+
     new_img.show()
     new_img.save("images/processed.jpg")
-    print("Centers:",blobs.coordinates())
     time.sleep(2)
