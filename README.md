@@ -7,4 +7,4 @@ Input:
 ![Screenshot](images/shapes.png)
 
 Output:   
-![Screenshot](images/processed.jpg)
+![Screenshot](images/processed.jpeg)
