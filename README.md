@@ -8,3 +8,5 @@ Input:
 
 Output:   
 ![Screenshot](images/processed.jpeg)
+
+As you can see it's currently not that accurate. Only got 4/6 correct in the above picture.
