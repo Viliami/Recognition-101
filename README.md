@@ -2,7 +2,12 @@
 Basic Recognition system in Python and C++.
 It will recognize simple shapes when given PNG/JPG files.
 
-##Example
+##Dependencies
+- Pygame
+- SimpleCV (.deb file in /installation/ folder)
+- Python Interpreter
+
+###Example
 Input:   
 ![Screenshot](images/shapes.png)
 
