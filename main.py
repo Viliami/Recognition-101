@@ -27,8 +27,10 @@ def contains_corner(points,corner):
 
 def shape_name(corners_amount):
     c = corners_amount
-    if(c <= 2 or c >= 20):
+    if(c <= 2):
         return "???"
+    elif(c >= 26):
+        return "Circle"
     elif c == 3:
         return "Triangle"
     elif c == 4:
@@ -80,7 +82,7 @@ for file in files:
             #print(contains_corner(gen_rect_points(blobs[1]),corner.coordinates()))
         print(counter)
         #print(contains_corner(gen_rect_points(blobs[1]),corners[1].coordinates()))
-        plain_img.drawText(shape_name(counter),blob.coordinates()[0],blob.coordinates()[1])
+        plain_img.drawText(shape_name(counter),blob.minX(),blob.coordinates()[1],(255,0,0))
         blobs_counter.append(counter)
 
     plain_img.show()
